@@ -1,6 +1,7 @@
 # mortalidade_2021
 Projeto da matéria de Ciência de Dados, do Instituto Federal de Ciência e Tecnologia de São Paulo.
 
+## Referências
 
-https://opendatasus.saude.gov.br/dataset/sisvan-estado-nutricional/resource/94dac617-dab0-4c58-bfed-39faf6eb6507?inner_span=True
-https://s3.sa-east-1.amazonaws.com/ckan.saude.gov.br/SISVAN/estado_nutricional/Dicion%C3%A1rio+de+Dados+-+Estado+Nutricional.pdf
+- [Base de dados](https://opendatasus.saude.gov.br/dataset/sim-1979-2019/resource/c622b337-a522-4243-bf19-6c971e809cff)
+- [Discionário de dados](https://diaad.s3.sa-east-1.amazonaws.com/sim/Mortalidade_Geral+-+Estrutura.pdf)
