@@ -7,4 +7,4 @@ A proposta deste projeto é aplicar o CRISP-DM, padrão internacional de minera�
 ## Referências
 
 - [Base de dados](https://opendatasus.saude.gov.br/dataset/sim-1979-2019/resource/c622b337-a522-4243-bf19-6c971e809cff)
-- [Discionário de dados](https://diaad.s3.sa-east-1.amazonaws.com/sim/Mortalidade_Geral+-+Estrutura.pdf)
+- [Dicionário de dados](https://diaad.s3.sa-east-1.amazonaws.com/sim/Mortalidade_Geral+-+Estrutura.pdf)
