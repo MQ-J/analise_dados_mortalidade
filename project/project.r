@@ -24,13 +24,33 @@ library(naivebayes) # executa o algoritmo naive bayes
 library(ggplot2) # Para análise exploratória
 library(pROC) # Para curva ROC
 
-# Junta a base de dados de municípios à base de mortalidade
+#Junta a base de dados de municípios à base de mortalidade
 dados <- merge(dados, municipios, by.x = 'CODMUNRES', by.y = 'CODMUNIC')
 
 # Ajusta idade
 dados <- transform(dados, IDADE2 = ifelse(as.numeric(as.character(IDADE)) <= 400, 1, as.numeric(as.character(IDADE))))
 dados <- transform(dados, IDADE2 = ifelse(IDADE2 > 1 & IDADE2 < 500, IDADE2 - 400, 100))
 
+## Colunas para remover
+# CONTADOR - índice.
+# CODIFICADO - Informa se formulario foi codificado
+# CRITICA - Dado para controle interno 
+# ESTABDESCR - Todas as linhas são NA
+# EXPDIFDATA - Todas as linhas são NULL
+# ETNIA - Todas as linhas são NULL
+# FONTESINF - tudo NA
+# FONTINFO - Tudo NULL
+# NUDIASOBIN - Tudo NA
+# TPASSINA - Tudo NULL
+# FONTES - Demais campos de fontes substituem este.
+# MORTEPARTO - Não faz parte do escopo da análise.
+# NUDIASINF - Tudo NA
+# NUMEXPORT - Tudo null
+
+## Colunas relevantes
+# MUNIOCOR - Municipio de ocorrencia do obito
+
+## PARAMOS NO 104
 
 ##########################
 # Modelagem
