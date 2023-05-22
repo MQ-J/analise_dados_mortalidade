@@ -46,9 +46,17 @@ dados <- transform(dados, IDADE2 = ifelse(IDADE2 > 1 & IDADE2 < 500, IDADE2 - 40
 # MORTEPARTO - Não faz parte do escopo da análise.
 # NUDIASINF - Tudo NA
 # NUMEXPORT - Tudo null
+# STCODIFICA - Status de instalação - Irrelevante para a análise
+# TIPOACID - Tudo NULL
+# TIPOVIOL - Tudo NULL
+# TPNIVELINV - Tipo de nível investigador - Irrelevante para a análise
+# UFINFORM - Tudo NULL
+# VERSAOSCB - Versão do seletor de causa básica - Irrelevante para a análise
+# VERSAOSIST - Versão do sistema - Irrelevante para a análise
 
 ## Colunas relevantes
 # MUNIOCOR - Municipio de ocorrencia do obito
+# SEXO - Sexo do falecido
 
 ## PARAMOS NO 104
 
@@ -60,10 +68,10 @@ dados <- transform(dados, IDADE2 = ifelse(IDADE2 > 1 & IDADE2 < 500, IDADE2 - 40
 boxplot(dados$IDADE2)
 
 #Gera o plot das colunas idade e racacor, com amostra de 100
-select(dados, IDADE2, RACACOR) %>%
+select(dados, SEXO, RACACOR) %>%
   sample_n(100) %>%
   collect() %>%
   plot()
 
 #Analise exploratória
-summary(dados)
+summary(dados$VERSAOSIST)
