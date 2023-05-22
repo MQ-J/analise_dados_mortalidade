@@ -24,6 +24,38 @@ Extraímos os dados de mortalidade geral em 2020, que conta com informações so
 
 ## Preparação de dados
 
+### Identificando os municípios
+Durante a preparação dos dados, Foi feita junção da base de mortalidade com uma base de dados sobre os municípios brasileiros. A ação foi necessária pois na base de mortalidade os municípios são referenciados pelo seu código, e a partir da junção foi possível identificá-los.
+
+### Remoção de colunas
+Muitas colunas da base de mortalidade vieram com valores NA, ou não eram relevantes para a análise do projeto. A remoção destas colunas foi feita usando a função `subset`.
+```R
+dados <- subset(dados, select = -c(CONTADOR, CODIFICADO, ESTABDESCR, FONTESINF, NUDIASOBIN, FONTES, MORTEPARTO, NUDIASINF, STCODIFICA, TPNIVELINV, VERSAOSCB, VERSAOSIST))
+```
+
+### Justificando a remoção das colunas
+````
+# CONTADOR - índice
+# CODIFICADO - Informa se formulario foi codificado
+# ESTABDESCR - NA
+# FONTESINF - NA
+# NUDIASOBIN - NA
+# FONTES - Demais campos de fontes substituem este.
+# MORTEPARTO - Não faz parte do escopo da análise.
+# NUDIASINF - NA
+# STCODIFICA - Status de instalação - Irrelevante para a análise
+# TPNIVELINV - Tipo de nível investigador - Irrelevante para a análise
+# VERSAOSCB - Versão do seletor de causa básica - Irrelevante para a análise
+# VERSAOSIST - Versão do sistema - Irrelevante para a análise
+````
+
+### Ajuste de colunas
+- IDADE
+````R
+dados <- transform(dados, IDADE2 = ifelse(as.numeric(as.character(IDADE)) <= 400, 1, as.numeric(as.character(IDADE))))
+dados <- transform(dados, IDADE2 = ifelse(IDADE2 > 1 & IDADE2 < 500, IDADE2 - 400, 100))
+````
+
 ## Modelagem
 
 ## Avaliação
