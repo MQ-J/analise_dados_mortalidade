@@ -28,8 +28,17 @@ library(pROC) # Para curva ROC
 dados <- merge(dados, municipios, by.x = 'CODMUNRES', by.y = 'CODMUNIC')
 
 # Ajusta idade
+# Transforma todas as idades menores ou iguais a 400 em 1 ano,e remove 400 das idades acima de 400.
+# Com isso, temos normalizadas as idades, de 1 a 100 anos.
 dados <- transform(dados, IDADE2 = ifelse(as.numeric(as.character(IDADE)) <= 400, 1, as.numeric(as.character(IDADE))))
 dados <- transform(dados, IDADE2 = ifelse(IDADE2 > 1 & IDADE2 < 500, IDADE2 - 400, 100))
+
+# Ajusta Sexo
+# Transforma os valores: 0 para I, de Indefinido; 1 para M, de Masculino; e 2 para F, Feminino.
+levels(dados$SEXO) <- c("I", "M", "F")
+
+# Ajusta Estado Civil
+levels(dados$ESTCIV) <- c("Solteiro", "Casado", "Viuvo", "Separado judicialmente", "União estável", "Ignorado")
 
 ## Colunas para remover
 # CONTADOR - índice.
@@ -58,7 +67,6 @@ dados <- transform(dados, IDADE2 = ifelse(IDADE2 > 1 & IDADE2 < 500, IDADE2 - 40
 # MUNIOCOR - Municipio de ocorrencia do obito
 # SEXO - Sexo do falecido
 
-## PARAMOS NO 104
 
 ##########################
 # Modelagem
@@ -67,11 +75,17 @@ dados <- transform(dados, IDADE2 = ifelse(IDADE2 > 1 & IDADE2 < 500, IDADE2 - 40
 # Verifica outlier
 boxplot(dados$IDADE2)
 
-#Gera o plot das colunas idade e racacor, com amostra de 100
+# Gera o plot das colunas idade e racacor, com amostra de 100
 select(dados, SEXO, RACACOR) %>%
   sample_n(100) %>%
   collect() %>%
   plot()
 
-#Analise exploratória
-summary(dados$VERSAOSIST)
+# Analise exploratória do SEXO
+plot(dados$SEXO)
+
+# Análise exploatória da Idade
+plot(dados$IDADE2)
+
+# Análise exploratória do estado cívil
+plot(dados$ESTCIV)
