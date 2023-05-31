@@ -22,7 +22,7 @@ O Ministério da Saúde brasileiro desenvolveu o SIM, Sistema de Informação so
 ## Entendimento dos dados
 Extraímos os dados de mortalidade geral em 2020, que conta com informações sobre a causa do óbito, local de ocorrência, e características fisícas e socioeconômicas dos indivíduos de forma anonimizada.
 
-Todos os óbitos registrados na base sãodo estado de S não fetais.
+Todos os óbitos registrados na base são do estado de São Paulo, não fetais.
 
 ## Preparação de dados
 
