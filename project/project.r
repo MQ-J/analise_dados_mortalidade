@@ -1,17 +1,24 @@
 ##########################
 # BAIXA OS DADOS
 ##########################
-
+install.packages("Rtools")
 install.packages("remotes")
-remotes::install_github("rfsaldanha/microdatasus", force=TRUE)
+
+
+devtools::install_github("danicat/read.dbc")
+
+pkgbuild::check_build_tools(debug = TRUE)
+remotes::install_github("rfsaldanha/microdatasus", force = TRUE)
+
 
 library(microdatasus)
 
 dados <- fetch_datasus(year_start = 2020, year_end = 2020, uf = "SP", information_system = "SIM-DO")
 
 # Posix não aguenta este processamento
-# dados <-process_sim(dados)
-
+dados <-process_sim(dados)
+dados <- dados%>%sample_n(10000)
+  
 ##########################
 # Preparação de dados
 ##########################
@@ -33,12 +40,18 @@ dados <- merge(dados, municipios, by.x = 'CODMUNRES', by.y = 'CODMUNIC')
 dados <- transform(dados, IDADE2 = ifelse(as.numeric(as.character(IDADE)) <= 400, 1, as.numeric(as.character(IDADE))))
 dados <- transform(dados, IDADE2 = ifelse(IDADE2 > 1 & IDADE2 < 500, IDADE2 - 400, 100))
 
+dados <- subset(dados, select = -c(CONTADOR, CODIFICADO, ESTABDESCR, FONTESINF, NUDIASOBIN, FONTES, MORTEPARTO, NUDIASINF, STCODIFICA, TPNIVELINV, VERSAOSCB, VERSAOSIST))
 # Ajusta Sexo
 # Transforma os valores: 0 para I, de Indefinido; 1 para M, de Masculino; e 2 para F, Feminino.
 levels(dados$SEXO) <- c("I", "M", "F")
 
 # Ajusta Estado Civil
 levels(dados$ESTCIV) <- c("Solteiro", "Casado", "Viuvo", "Separado judicialmente", "União estável", "Ignorado")
+
+
+dados<-dados%>%
+  mutate(faixa_idade = ifelse(as.numeric(as.character(IDADEanos)) < 20, "< 20", ifelse(as.numeric(as.character(IDADEanos)) >= 20 & as.numeric(as.character(IDADEanos)) < 30, ">=20 e < 30", ifelse(as.numeric(as.character(IDADEanos)) >= 30 & as.numeric(as.character(IDADEanos)) < 40, ">=30 e < 40", ">=40"))))
+
 
 ## Colunas para remover
 # CONTADOR - índice.
@@ -73,7 +86,7 @@ levels(dados$ESTCIV) <- c("Solteiro", "Casado", "Viuvo", "Separado judicialmente
 ##########################
 
 # Verifica outlier
-boxplot(dados$IDADE2)
+boxplot(dados$IDADE)
 
 # Gera o plot das colunas idade e racacor, com amostra de 100
 select(dados, SEXO, RACACOR) %>%
@@ -81,11 +94,55 @@ select(dados, SEXO, RACACOR) %>%
   collect() %>%
   plot()
 
-# Analise exploratória do SEXO
-plot(dados$SEXO)
+# Analise exploratória do SEXO (só funciona com variaveis 'factor')
+plot(as.factor(dados$SEXO))
 
 # Análise exploatória da Idade
-plot(dados$IDADE2)
+plot(as.factor(dados$IDADEanos))
+
+plot(as.factor(dados$faixa_idade))
 
 # Análise exploratória do estado cívil
-plot(dados$ESTCIV)
+plot(as.factor(dados$ESTCIV))
+
+dados$ESTCIV
+
+##########################
+# ANALISE EXPLICITA
+##########################
+
+plot(as.factor(dados$munResNome))
+
+install.packages("leaflet")
+
+library(leaflet)
+
+m <- leaflet()
+m <- addTiles(m)
+  
+loop_index_1 <- 0
+while (loop_index_1 < count(dados)){                       # Run for-loop
+  loop_index_1 <- loop_index_1 + 1
+  m <- addMarkers(m,
+                  lng=as.numeric(dados$munResLon[loop_index_1]),
+                  lat=as.numeric(dados$munResLat[loop_index_1]),
+                  popup=as.numeric(dados$munResNome[loop_index_1]))
+  
+}
+m
+
+##########################
+# ANALISE IMPLICITA
+##########################
+# Regressão
+##########################
+#Box plot com ggplot
+ggplot(dados, aes(y = IDADEanos)) +
+  geom_boxplot()
+#Verificando a correlação
+cor(cars$speed,cars$dist)
+
+#Distribuição é normal?
+shapiro.test(cars$Price)
+
+
