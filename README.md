@@ -35,23 +35,13 @@ Muitas colunas da base de mortalidade vieram com valores NA, ou não eram releva
 dados <- subset(dados, select = -c(CONTADOR, CODIFICADO, ESTABDESCR, FONTESINF, NUDIASOBIN, FONTES, MORTEPARTO, NUDIASINF, STCODIFICA, TPNIVELINV, VERSAOSCB, VERSAOSIST))
 ```
 
-### Justificando a remoção das colunas
-````
-# CONTADOR - índice
-# CODIFICADO - Informa se formulario foi codificado
-# ESTABDESCR - NA
-# FONTESINF - NA
-# NUDIASOBIN - NA
-# FONTES - Demais campos de fontes substituem este.
-# MORTEPARTO - Não faz parte do escopo da análise.
-# NUDIASINF - NA
-# STCODIFICA - Status de instalação - Irrelevante para a análise
-# TPNIVELINV - Tipo de nível investigador - Irrelevante para a análise
-# VERSAOSCB - Versão do seletor de causa básica - Irrelevante para a análise
-# VERSAOSIST - Versão do sistema - Irrelevante para a análise
-````
+### Gerenciamento de dados ausentes
+- apagar a linha?
+- ou substituir valor?
 
-### Ajuste de colunas
+
+
+### Padronização dos dados
 - IDADE
 ````R
 dados <- transform(dados, IDADE2 = ifelse(as.numeric(as.character(IDADE)) <= 400, 1, as.numeric(as.character(IDADE))))
