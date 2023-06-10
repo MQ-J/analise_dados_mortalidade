@@ -35,23 +35,13 @@ Muitas colunas da base de mortalidade vieram com valores NA, ou não eram releva
 dados <- subset(dados, select = -c(CONTADOR, CODIFICADO, ESTABDESCR, FONTESINF, NUDIASOBIN, FONTES, MORTEPARTO, NUDIASINF, STCODIFICA, TPNIVELINV, VERSAOSCB, VERSAOSIST))
 ```
 
-### Justificando a remoção das colunas
-````
-# CONTADOR - índice
-# CODIFICADO - Informa se formulario foi codificado
-# ESTABDESCR - NA
-# FONTESINF - NA
-# NUDIASOBIN - NA
-# FONTES - Demais campos de fontes substituem este.
-# MORTEPARTO - Não faz parte do escopo da análise.
-# NUDIASINF - NA
-# STCODIFICA - Status de instalação - Irrelevante para a análise
-# TPNIVELINV - Tipo de nível investigador - Irrelevante para a análise
-# VERSAOSCB - Versão do seletor de causa básica - Irrelevante para a análise
-# VERSAOSIST - Versão do sistema - Irrelevante para a análise
-````
+### Gerenciamento de dados ausentes
+- apagar a linha?
+- ou substituir valor?
 
-### Ajuste de colunas
+
+
+### Padronização dos dados
 - IDADE
 ````R
 dados <- transform(dados, IDADE2 = ifelse(as.numeric(as.character(IDADE)) <= 400, 1, as.numeric(as.character(IDADE))))
@@ -59,6 +49,12 @@ dados <- transform(dados, IDADE2 = ifelse(IDADE2 > 1 & IDADE2 < 500, IDADE2 - 40
 ````
 
 ## Modelagem
+
+### Análise exploratória da Idade
+![image](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/dbacae94-dab0-42fe-a74b-4f9a427c17ad)
+
+### Análise exploratória do estado cívil
+![image](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/5b9fc852-f1f4-458f-826b-d176539ac52e)
 
 ## Avaliação
 
