@@ -63,8 +63,11 @@ Durante a preparação dos dados, Foi feita junção da base de mortalidade com 
 ## Descarte
 
 ## Referências
-
+### Bases de dados utilizadas
 - [Mortalidade Geral 2020](https://opendatasus.saude.gov.br/dataset/sim-1979-2019/resource/c622b337-a522-4243-bf19-6c971e809cff)
 - [Estrutura do SIM](https://diaad.s3.sa-east-1.amazonaws.com/sim/Mortalidade_Geral+-+Estrutura.pdf)
+### Trabalhos semelhantes
 - [Capítulos da Classificação Estatística Internacional de Doenças e
 Problemas Relacionados à Saúde / CID-10](https://www.saude.sc.gov.br/index.php/informacoes-gerais-documentos/video-e-webconferencias/webconferencias-2010/treinamento-sim/3659-manual-mortalidade-2007/file)
+### Ferramentas utilizadas
+- [Cloudconvert](https://cloudconvert.com/md-to-pdf) para converter o REDME do depositório em um arquivo PDF.
