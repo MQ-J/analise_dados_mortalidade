@@ -49,9 +49,11 @@ Durante a preparação dos dados, Foi feita junção da base de mortalidade com 
 ### Modelagem
 
 #### Análise exploratória da Idade
+
 ![image](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/dbacae94-dab0-42fe-a74b-4f9a427c17ad)
 
 #### Análise exploratória do estado cívil
+
 ![image](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/5b9fc852-f1f4-458f-826b-d176539ac52e)
 
 ### Avaliação
