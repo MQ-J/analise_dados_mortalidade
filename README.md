@@ -1,10 +1,11 @@
-# O Projeto
-A proposta deste projeto é aplicar o CRISP-DM, padrão internacional de mineração de dados, em uma base de dados do Ministério da Saúde do Brasil. O arquivo selecionado para análise contém os registros de mortalidade no Brasil no ano de 2020.
+# Mortalidade no Brasil no ano de 2020
+
+A proposta deste projeto é aplicar o ciclo de vida do dado em uma base de dados do Ministério da Saúde do Brasil. O arquivo selecionado para análise contém os registros de mortalidade no Brasil no ano de 2020.
 
 A linguagem de programação utilizada foi a R, devido suas bibliotecas de análise de dados.
 
-## Sobre o CRISP-DM
-CRISP-DM é o acrônimo para CRoss Industry Standard Process for Data Mining, que em tradução direta pode ser entendido como um padrão de processos de mineração de dados entre indústrias.
+## Análise de dados
+A fase de análise foi baseada no modelo CRISP-DM, padrão internacional de mineração de dados. CRISP-DM é o acrônimo para CRoss Industry Standard Process for Data Mining, que em tradução direta pode ser entendido como um padrão de processos de mineração de dados entre indústrias.
 
 Ele especifica os passos necessários para o aproveito de dados a fim de se obter informações e conhecimento sobre eles.
 
@@ -16,35 +17,35 @@ Este padrão se constitui em seis fases:
 - Avaliação
 - Implantação
 
-## Entendimento do negócio
+### Entendimento do negócio
 O Ministério da Saúde brasileiro desenvolveu o SIM, Sistema de Informação sobre Mortalidade, que unifica declarações de óbito emitidas no país desde 1979. Seu conjunto de informações serve de apoio para o desenvolvimento de políticas públicas com respeito a saúde da população.
 
-## Entendimento dos dados
+### Entendimento dos dados
 Extraímos os dados de mortalidade geral em 2020, que conta com informações sobre a causa do óbito, local de ocorrência, e características fisícas e socioeconômicas dos indivíduos de forma anonimizada.
 
 Todos os óbitos registrados na base são do estado de São Paulo, não fetais.
 
-## Preparação de dados
+### Preparação de dados
 
-### Identificando os municípios
+#### Identificando os municípios
 Durante a preparação dos dados, Foi feita junção da base de mortalidade com uma base de dados sobre os municípios brasileiros. A ação foi necessária pois na base de mortalidade os municípios são referenciados pelo seu código, e a partir da junção foi possível identificá-los.
 
-### Gerenciamento de dados ausentes
+#### Gerenciamento de dados ausentes
 - apagar a linha?
 - ou substituir valor?
 
-### Padronização dos dados
+#### Padronização dos dados
 - IDADE: Todas as idades em dias, meses e de até um ano foram agrupadas na catgoria "até um ano". Demais idades seguem em anos, até agrupar idades maiores ou iguais a 100 em "cem ou mais".
 
-## Modelagem
+### Modelagem
 
-### Análise exploratória da Idade
+#### Análise exploratória da Idade
 ![image](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/dbacae94-dab0-42fe-a74b-4f9a427c17ad)
 
-### Análise exploratória do estado cívil
+#### Análise exploratória do estado cívil
 ![image](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/5b9fc852-f1f4-458f-826b-d176539ac52e)
 
-## Avaliação
+### Avaliação
 
 ## Implantação
 
