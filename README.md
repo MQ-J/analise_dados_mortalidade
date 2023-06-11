@@ -65,6 +65,7 @@ Durante a preparação dos dados, Foi feita junção da base de mortalidade com 
 ## Referências
 ### Bases de dados utilizadas
 - [Mortalidade Geral 2020](https://opendatasus.saude.gov.br/dataset/sim-1979-2019/resource/c622b337-a522-4243-bf19-6c971e809cff)
+- [Municícios brasileiros](https://eadcampus.spo.ifsp.edu.br/pluginfile.php/961605/mod_resource/content/2/municipios.csv)
 - [Estrutura do SIM](https://diaad.s3.sa-east-1.amazonaws.com/sim/Mortalidade_Geral+-+Estrutura.pdf)
 ### Trabalhos semelhantes
 - [Capítulos da Classificação Estatística Internacional de Doenças e
