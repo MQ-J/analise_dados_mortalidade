@@ -29,24 +29,12 @@ Todos os óbitos registrados na base são do estado de São Paulo, não fetais.
 ### Identificando os municípios
 Durante a preparação dos dados, Foi feita junção da base de mortalidade com uma base de dados sobre os municípios brasileiros. A ação foi necessária pois na base de mortalidade os municípios são referenciados pelo seu código, e a partir da junção foi possível identificá-los.
 
-### Remoção de colunas
-Muitas colunas da base de mortalidade vieram com valores NA, ou não eram relevantes para a análise do projeto. A remoção destas colunas foi feita usando a função `subset`.
-```R
-dados <- subset(dados, select = -c(CONTADOR, CODIFICADO, ESTABDESCR, FONTESINF, NUDIASOBIN, FONTES, MORTEPARTO, NUDIASINF, STCODIFICA, TPNIVELINV, VERSAOSCB, VERSAOSIST))
-```
-
 ### Gerenciamento de dados ausentes
 - apagar a linha?
 - ou substituir valor?
 
-
-
 ### Padronização dos dados
-- IDADE
-````R
-dados <- transform(dados, IDADE2 = ifelse(as.numeric(as.character(IDADE)) <= 400, 1, as.numeric(as.character(IDADE))))
-dados <- transform(dados, IDADE2 = ifelse(IDADE2 > 1 & IDADE2 < 500, IDADE2 - 400, 100))
-````
+- IDADE: Todas as idades em dias, meses e de até um ano foram agrupadas na catgoria "até um ano". Demais idades seguem em anos, até agrupar idades maiores ou iguais a 100 em "cem ou mais".
 
 ## Modelagem
 
