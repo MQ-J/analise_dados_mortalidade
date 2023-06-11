@@ -4,6 +4,7 @@ A proposta deste projeto é aplicar o ciclo de vida do dado em uma base de dados
 A linguagem de programação utilizada foi a R, devido suas bibliotecas de análise de dados.
 
 O ciclo de vida do dado diz respeito às fases que um conjunto de dados percorre dentro da ciência de dados.
+
 ![ciclodevida](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/cde2974a-a80d-4d9a-acb8-900233792a2d)
 
 ## Produção
