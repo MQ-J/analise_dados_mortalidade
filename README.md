@@ -1,8 +1,16 @@
 # Mortalidade no Brasil no ano de 2020
 
-A proposta deste projeto é aplicar o ciclo de vida do dado em uma base de dados do Ministério da Saúde do Brasil. O arquivo selecionado para análise contém os registros de mortalidade no Brasil no ano de 2020.
-
+A proposta deste projeto é aplicar o ciclo de vida do dado em uma base de dados do Ministério da Saúde do Brasil. A base escolhida para análise contém os registros de mortalidade no Brasil no ano de 2020.
 A linguagem de programação utilizada foi a R, devido suas bibliotecas de análise de dados.
+
+O ciclo de vida do dado diz respeito às fases que um conjunto de dados percorre dentro da ciência de dados.
+![image](/assets/ciclodevida.png)
+
+## Produção
+
+## Armazenamento
+
+## Transformação
 
 ## Análise de dados
 A fase de análise foi baseada no modelo CRISP-DM, padrão internacional de mineração de dados. CRISP-DM é o acrônimo para CRoss Industry Standard Process for Data Mining, que em tradução direta pode ser entendido como um padrão de processos de mineração de dados entre indústrias.
@@ -47,9 +55,11 @@ Durante a preparação dos dados, Foi feita junção da base de mortalidade com 
 
 ### Avaliação
 
-## Implantação
+### Implantação
 
-# Referências
+## Descarte
+
+## Referências
 
 - [Mortalidade Geral 2020](https://opendatasus.saude.gov.br/dataset/sim-1979-2019/resource/c622b337-a522-4243-bf19-6c971e809cff)
 - [Estrutura do SIM](https://diaad.s3.sa-east-1.amazonaws.com/sim/Mortalidade_Geral+-+Estrutura.pdf)
