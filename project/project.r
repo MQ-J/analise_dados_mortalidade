@@ -3,7 +3,8 @@
 ##########################
 install.packages("Rtools")
 install.packages("remotes")
-
+install.packages("nnet")
+install.packages('car')
 
 devtools::install_github("danicat/read.dbc")
 
@@ -26,6 +27,9 @@ dados <- dados%>%sample_n(10000)
 library(tidyverse)
 library(dplyr)
 library(caret) # calcula matriz de confusão
+library(nnet)
+require(car)
+
 library(psych)
 library(naivebayes) # executa o algoritmo naive bayes
 library(ggplot2) # Para análise exploratória
@@ -105,7 +109,12 @@ plot(as.factor(dados$faixa_idade))
 # Análise exploratória do estado cívil
 plot(as.factor(dados$ESTCIV))
 
+table(dados$SEXO)
+
 dados$ESTCIV
+
+character_vars <- lapply(dados, class) == "character"
+dados[, character_vars] <- lapply(dados[, character_vars], as.factor)
 
 ##########################
 # ANALISE EXPLICITA
@@ -134,15 +143,78 @@ m
 ##########################
 # ANALISE IMPLICITA
 ##########################
-# Regressão
+# Regressão Logistica multinomial
 ##########################
-#Box plot com ggplot
-ggplot(dados, aes(y = IDADEanos)) +
-  geom_boxplot()
-#Verificando a correlação
-cor(cars$speed,cars$dist)
+##Box plot com ggplot
+#ggplot(dados, aes(y = IDADEanos)) +
+#  geom_boxplot()
+##Verificando a correlação
+#cor(cars$speed,cars$dist)
 
 #Distribuição é normal?
-shapiro.test(cars$Price)
+#shapiro.test(cars$Price)
 
+#multinom_model <- multinom( ~ ., dados = tissue)
+
+
+df <- data.frame(
+  CAUSABAS = dados$CAUSABAS,
+ idade = dados$IDADEanos,
+ munRes = dados$munResNome,
+ sexo = dados$SEXO,
+ racaCor = dados$RACACOR
+                 )
+
+
+levels(df)
+psych::pairs.panels(df)
+cor(df)
+m <- lm (as.numeric(CAUSABAS) ~ sexo + idade + munRes  ,data = df)
+car::vif(m)
+
+
+
+#Criando e testando o modelo
+#Etapa 1
+
+df <- df%>%filter(!idade == '')%>%filter(!sexo == '')%>%filter(!munRes == '')%>%filter(!CAUSABAS == '')
+df$idade  <- as.numeric(df$idade)
+
+set.seed(123)
+train_linha_SIM <- sample(1:nrow(df), 0.8*nrow(df))  # índice da linha dos dados de treinamento
+train_dado_SIM <- df[train_linha_SIM, ]  # dados do modelo de treinamento
+test_dado_SIM  <- df[-train_linha_SIM, ]
+
+train_dado_SIM<-train_dado_SIM%>%
+  filter(!is.na(idade))
+
+train_dado_SIM<-train_dado_SIM%>%
+  filter(!is.na(sexo))
+
+train_dado_SIM<-train_dado_SIM%>%
+  filter(!is.na(munRes))
+
+train_dado_SIM<-train_dado_SIM%>%
+  filter(!is.na(CAUSABAS))
+
+model_SIM <- glm(sexo~CAUSABAS+idade+racaCor, data = train_dado_SIM, family = "binomial")
+summary(model_SIM)
+
+#Avaliação do modelo
+head(predict(model_SIM, type = "response"))
+train_dado_SIM_resp<-predict(model_SIM, type = "response")
+
+trn_pred_SIM <- ifelse(predict(model_SIM, type = "response") > 0.5, "Yes", "No")
+head(trn_pred_SIM)
+
+train_dado_SIM<-train_dado_SIM%>%
+  mutate(sexo_ = ifelse(sexo=="Masculino","Yes","No"))
+
+trn_tab_SIM <- table(predicted = trn_pred_SIM, actual = train_dado_SIM$sexo_[1:7713])
+trn_tab_SIM
+
+confusionMatrix(trn_tab_SIM, positive = "Yes")
+
+test_prob_SIM <- predict(model_SIM, newdata = test_dado_SIM, type = "response")
+test_roc_SIM <- roc(test_dado_SIM$sexo ~ test_prob_SIM, plot = TRUE, print.auc = TRUE)
 
