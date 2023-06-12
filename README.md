@@ -1,15 +1,17 @@
 # Mortalidade no Brasil no ano de 2020
 
 A proposta deste projeto é aplicar o ciclo de vida do dado em uma base de dados do Ministério da Saúde do Brasil. A base escolhida para análise contém os registros de mortalidade no Brasil no ano de 2020.
-A linguagem de programação utilizada foi a R, devido suas bibliotecas de análise de dados.
 
-O ciclo de vida do dado diz respeito às fases que um conjunto de dados percorre dentro da ciência de dados.
+O ciclo de vida do dado, citado anteriormente, diz respeito às fases que um conjunto de dados percorre dentro da ciência de dados. Cada fase deste ciclo é abordada em um capítulo deste relatório.
 
 ![ciclodevida](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/cde2974a-a80d-4d9a-acb8-900233792a2d)
 
 ## Produção
+A base de mortalidade geral foi coletada do sistema OpenDataSus, por meio do pacote microdatasus, feito para liguagem R. A outra base, com os municípios brasileiros, foi baixada manualmente do Moodle Câmpus, ambiente virtual de apoio ao ensino presencial e a distância do IFSP.
+Os arquvios vieram em formato CSV.
 
 ## Armazenamento
+Ambas as bases foram armazenadas em datasets da Posit Cloud.
 
 ## Transformação
 
@@ -71,4 +73,6 @@ Durante a preparação dos dados, Foi feita junção da base de mortalidade com 
 - [Capítulos da Classificação Estatística Internacional de Doenças e
 Problemas Relacionados à Saúde / CID-10](https://www.saude.sc.gov.br/index.php/informacoes-gerais-documentos/video-e-webconferencias/webconferencias-2010/treinamento-sim/3659-manual-mortalidade-2007/file)
 ### Ferramentas utilizadas
-- [Cloudconvert](https://cloudconvert.com/md-to-pdf) para converter o REDME do depositório em um arquivo PDF.
+- [Posit Cloud](https://posit.cloud/): Ambiente de desenvolvimento de modelos e armazenamento de datasets.
+- [microdatasus](https://github.com/rfsaldanha/microdatasus): Pacote R para download de arquivos do OpenDataSUS.
+- [Cloudconvert](https://cloudconvert.com/md-to-pdf): Conversão do REDME do depositório em um arquivo PDF.
