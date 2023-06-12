@@ -78,4 +78,4 @@ Problemas Relacionados à Saúde / CID-10](https://www.saude.sc.gov.br/index.php
 ### Ferramentas utilizadas
 - [Posit Cloud](https://posit.cloud/): Ambiente de desenvolvimento de modelos e armazenamento de datasets.
 - [microdatasus](https://github.com/rfsaldanha/microdatasus): Pacote R para download de arquivos do OpenDataSUS.
-- [Cloudconvert](https://cloudconvert.com/md-to-pdf): Conversão do REDME do depositório em um arquivo PDF.
+- [md2pdf](https://md2pdf.netlify.app/): Conversão do REDME do depositório em um arquivo PDF.
