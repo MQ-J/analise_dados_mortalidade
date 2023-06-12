@@ -14,6 +14,7 @@ Os arquvios vieram em formato CSV.
 Ambas as bases foram armazenadas em datasets da Posit Cloud.
 
 ## Transformação
+A transformação necessária na base do Ministério da Saúde, como a codificação utilizada, ficou por parte do pacote microdatasus.
 
 ## Análise de dados
 A fase de análise foi baseada no modelo CRISP-DM, padrão internacional de mineração de dados. CRISP-DM é o acrônimo para CRoss Industry Standard Process for Data Mining, que em tradução direta pode ser entendido como um padrão de processos de mineração de dados entre indústrias.
