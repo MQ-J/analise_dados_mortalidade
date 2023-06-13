@@ -63,7 +63,12 @@ Durante a preparação dos dados, Foi feita junção da base de mortalidade com 
 ### Modelagem - Análise Exploratória
 
 #### A taxa de mortalidade masculina é maior em relação à feminina
-![sexos](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/4c2a0636-8fca-42ab-95ad-3405e3a71401)
+![image](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/2981b155-fcfc-4194-b603-3a4046139d55)
+
+#### Se uma pessoa viveu até os 15 anos, provavelmente irá viver no mínimo até aos 20.
+Essa afirmação se baseia no número baixo de óbitos registrados nesta faixa etária.
+![image](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/883af4f9-582e-45db-9a7a-60e474ce7bb5)
+
 
 #### A Maioria dos óbitos são de pessoas casadas
 ![estciv](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/06ca33c3-6d70-472e-a897-c7e8f4badb5a)
