@@ -6,9 +6,11 @@ install.packages("remotes")
 install.packages("nnet")
 install.packages('car')
 
-devtools::install_github("danicat/read.dbc")
 
 pkgbuild::check_build_tools(debug = TRUE)
+
+devtools::install_github("danicat/read.dbc")
+
 remotes::install_github("rfsaldanha/microdatasus", force = TRUE)
 
 
@@ -18,7 +20,7 @@ dados <- fetch_datasus(year_start = 2020, year_end = 2020, uf = "SP", informatio
 
 # Posix não aguenta este processamento
 dados <-process_sim(dados)
-dados <- dados%>%sample_n(10000)
+dados <- dados%>%sample_n(100000)
   
 ##########################
 # Preparação de dados
@@ -54,7 +56,8 @@ levels(dados$ESTCIV) <- c("Solteiro", "Casado", "Viuvo", "Separado judicialmente
 
 
 dados<-dados%>%
-  mutate(faixa_idade = ifelse(as.numeric(as.character(IDADEanos)) < 20, "< 20", ifelse(as.numeric(as.character(IDADEanos)) >= 20 & as.numeric(as.character(IDADEanos)) < 30, ">=20 e < 30", ifelse(as.numeric(as.character(IDADEanos)) >= 30 & as.numeric(as.character(IDADEanos)) < 40, ">=30 e < 40", ">=40"))))
+  mutate(faixa_idade = ifelse(as.numeric(as.character(IDADEanos)) < 20, "< 20", ifelse(as.numeric(as.character(IDADEanos)) >= 20 & as.numeric(as.character(IDADEanos)) < 30, ">=20 e < 30", ifelse(as.numeric(as.character(IDADEanos)) >= 30 & as.numeric(as.character(IDADEanos)) < 60, ">=30 e < 60", ">=60"))))
+
 
 
 ## Colunas para remover
@@ -143,78 +146,87 @@ m
 ##########################
 # ANALISE IMPLICITA
 ##########################
-# Regressão Logistica multinomial
+# Regressão Logistica
 ##########################
-##Box plot com ggplot
-#ggplot(dados, aes(y = IDADEanos)) +
-#  geom_boxplot()
-##Verificando a correlação
-#cor(cars$speed,cars$dist)
 
-#Distribuição é normal?
-#shapiro.test(cars$Price)
+head(dados$faixa_idade) 
+summary(dados$faixa_idade)
 
-#multinom_model <- multinom( ~ ., dados = tissue)
+dados<-dados%>%
+  filter(!is.na(IDADEanos))
 
+dados<-dados%>%
+  filter(!is.na(dados$faixa_idade))
+
+dadis <-dados %>% 
+  filter(!is.na(SEXO))
+
+dados<-dados%>%
+  filter(!is.na(OCUP))
+
+dados<-dados%>%
+  filter(!is.na(munRes))
+
+dados<-dados%>%
+  filter(!is.na(CAUSABAS))
+
+dados<-dados%>%
+  filter(!is.na(ESTCIV))
 
 df <- data.frame(
-  CAUSABAS = dados$CAUSABAS,
- idade = dados$IDADEanos,
- munRes = dados$munResNome,
- sexo = dados$SEXO,
- racaCor = dados$RACACOR
-                 )
+  CAUSABAS = substr(dados$CAUSABAS, 1,1),
+  idade = dados$faixa_idade,
+  
+  sexo = dados$SEXO,
+  racaCor = dados$RACACOR,
+  estciv = ifelse(dados$ESTCIV=='Viúvo', 'Viúvo', 'Não Viúvo'),
+  ocup = dados$OCUP
+)
+
+df <- df%>%sample_n(10000)
 
 
-levels(df)
-psych::pairs.panels(df)
-cor(df)
-m <- lm (as.numeric(CAUSABAS) ~ sexo + idade + munRes  ,data = df)
-car::vif(m)
+character_vars <- lapply(df, class) == "character"
+df[, character_vars] <- lapply(df[, character_vars], as.factor)
 
-
+head(df$estciv) 
 
 #Criando e testando o modelo
 #Etapa 1
 
-df <- df%>%filter(!idade == '')%>%filter(!sexo == '')%>%filter(!munRes == '')%>%filter(!CAUSABAS == '')
-df$idade  <- as.numeric(df$idade)
+set.seed(145)  # Define uma semente para reproduzibilidade
+indice_treinamento <- sample(1:nrow(df), nrow(df) * 0.7)  # 70% dos dados para treinamento
+dados_treinamento <- df[indice_treinamento, ]
+dados_teste <- df[-indice_treinamento, ]
 
-set.seed(123)
-train_linha_SIM <- sample(1:nrow(df), 0.8*nrow(df))  # índice da linha dos dados de treinamento
-train_dado_SIM <- df[train_linha_SIM, ]  # dados do modelo de treinamento
-test_dado_SIM  <- df[-train_linha_SIM, ]
+dados_teste <- dados_teste[dados_teste$ocup %in% dados_treinamento$ocup, ]
 
-train_dado_SIM<-train_dado_SIM%>%
-  filter(!is.na(idade))
+summary(df$estciv) 
 
-train_dado_SIM<-train_dado_SIM%>%
-  filter(!is.na(sexo))
+modelo <- glm(as.factor(estciv) ~., data = dados_treinamento, family = binomial)
 
-train_dado_SIM<-train_dado_SIM%>%
-  filter(!is.na(munRes))
-
-train_dado_SIM<-train_dado_SIM%>%
-  filter(!is.na(CAUSABAS))
-
-model_SIM <- glm(sexo~CAUSABAS+idade+racaCor, data = train_dado_SIM, family = "binomial")
-summary(model_SIM)
+summary(modelo)
 
 #Avaliação do modelo
-head(predict(model_SIM, type = "response"))
-train_dado_SIM_resp<-predict(model_SIM, type = "response")
+previsoes <- predict(modelo, newdata = dados_teste, type = "response")
 
-trn_pred_SIM <- ifelse(predict(model_SIM, type = "response") > 0.5, "Yes", "No")
-head(trn_pred_SIM)
+dados_teste<-dados_teste%>%
+  mutate(resultado = ifelse(estciv=='Não Viúvo',"FALSE","TRUE"))
 
-train_dado_SIM<-train_dado_SIM%>%
-  mutate(sexo_ = ifelse(sexo=="Masculino","Yes","No"))
+matriz_confusao <- table(dados_teste$resultado, previsoes > 0.5)
+matriz_confusao
 
-trn_tab_SIM <- table(predicted = trn_pred_SIM, actual = train_dado_SIM$sexo_[1:7713])
-trn_tab_SIM
+acuracia <- sum(diag(matriz_confusao)) / sum(matriz_confusao)
+print(acuracia)
 
-confusionMatrix(trn_tab_SIM, positive = "Yes")
+sensibilidade <- matriz_confusao[2, 2] / sum(matriz_confusao[2, ])
+print(sensibilidade)
 
-test_prob_SIM <- predict(model_SIM, newdata = test_dado_SIM, type = "response")
-test_roc_SIM <- roc(test_dado_SIM$sexo ~ test_prob_SIM, plot = TRUE, print.auc = TRUE)
+especificidade <- matriz_confusao[1, 1] / sum(matriz_confusao[1, ])
+print(especificidade)
 
+library(pROC)
+roc_curva <- roc(dados_teste$estciv, previsoes)
+
+# Plotar a curva ROC
+plot(roc_curva, main = "Curva ROC")
