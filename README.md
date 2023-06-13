@@ -53,13 +53,32 @@ Durante a preparação dos dados, Foi feita junção da base de mortalidade com 
 
 ### Modelagem
 
-#### Análise exploratória da Idade
+#### Homens morrem mais do que as mulheres
+![sexos](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/4c2a0636-8fca-42ab-95ad-3405e3a71401)
 
-![image](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/dbacae94-dab0-42fe-a74b-4f9a427c17ad)
+#### A maior parte da população morre casada
+![estciv](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/06ca33c3-6d70-472e-a897-c7e8f4badb5a)
 
-#### Análise exploratória do estado cívil
+#### Apesar de no Braisl a maior parte da população de autodeclarar negra ou parda, são os brancos que mais morreram em São Paulo em 2020.
+![racacor](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/bef38fbf-a23a-4461-bad6-68d45460d731)
 
-![image](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/5b9fc852-f1f4-458f-826b-d176539ac52e)
+#### As principais causas de morte foram
+- Coronavírus
+- Infarto
+- Causas não específicadas,
+- Demais transtornos respiratórios, diabetes,
+- Neoplasia dos brônquios, infecção urinária
+- AVC e alzhieimer
+
+![causaabas](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/8936e70f-c073-4274-8fa0-1898b7235e88)
+
+#### A maioria dos homens que morrem, morrem casados, mas quanto as mulheres, em sua maioria ela morrem viúvas
+![estciv_homens](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/23b1d749-9fa6-49f1-b0ec-dc954eaf4415)
+
+![estciv_mulheres](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/aeea3eaa-d7ed-4c4a-b063-397a42bf5bcc)
+
+#### As ocupações com mais óbitos são: Aposentados,  donas de casa e pedreiros
+![ocup](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/a9770f5e-075a-447a-a34c-1bc1bf1cc2cf)
 
 ### Avaliação
 
