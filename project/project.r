@@ -19,7 +19,7 @@ dados <- fetch_datasus(year_start = 2020, year_end = 2020, uf = "SP", informatio
 # Posix não aguenta este processamento
 dados <-process_sim(dados)
 dados <- dados%>%sample_n(10000)
-  
+
 ##########################
 # Preparação de dados
 ##########################
@@ -38,13 +38,9 @@ library(pROC) # Para curva ROC
 #Junta a base de dados de municípios à base de mortalidade
 dados <- merge(dados, municipios, by.x = 'CODMUNRES', by.y = 'CODMUNIC')
 
-# Ajusta idade
-# Transforma todas as idades menores ou iguais a 400 em 1 ano,e remove 400 das idades acima de 400.
-# Com isso, temos normalizadas as idades, de 1 a 100 anos.
-dados <- transform(dados, IDADE2 = ifelse(as.numeric(as.character(IDADE)) <= 400, 1, as.numeric(as.character(IDADE))))
-dados <- transform(dados, IDADE2 = ifelse(IDADE2 > 1 & IDADE2 < 500, IDADE2 - 400, 100))
-
+# Remove colunas não usadas
 dados <- subset(dados, select = -c(CONTADOR, CODIFICADO, ESTABDESCR, FONTESINF, NUDIASOBIN, FONTES, MORTEPARTO, NUDIASINF, STCODIFICA, TPNIVELINV, VERSAOSCB, VERSAOSIST))
+
 # Ajusta Sexo
 # Transforma os valores: 0 para I, de Indefinido; 1 para M, de Masculino; e 2 para F, Feminino.
 levels(dados$SEXO) <- c("I", "M", "F")
@@ -52,11 +48,18 @@ levels(dados$SEXO) <- c("I", "M", "F")
 # Ajusta Estado Civil
 levels(dados$ESTCIV) <- c("Solteiro", "Casado", "Viuvo", "Separado judicialmente", "União estável", "Ignorado")
 
-
+# Cria faixa de idades
 dados<-dados%>%
   mutate(faixa_idade = ifelse(as.numeric(as.character(IDADEanos)) < 20, "< 20", ifelse(as.numeric(as.character(IDADEanos)) >= 20 & as.numeric(as.character(IDADEanos)) < 30, ">=20 e < 30", ifelse(as.numeric(as.character(IDADEanos)) >= 30 & as.numeric(as.character(IDADEanos)) < 40, ">=30 e < 40", ">=40"))))
 
+# Transforma para factor todas as variáveis em caractere
+character_vars <- lapply(dados, class) == "character"
+dados[, character_vars] <- lapply(dados[, character_vars], as.factor)
 
+##########################
+# ANOTAÇÕES
+##########################
+ 
 ## Colunas para remover
 # CONTADOR - índice.
 # CODIFICADO - Informa se formulario foi codificado
@@ -86,13 +89,9 @@ dados<-dados%>%
 
 
 ##########################
-# Análise Exploratória
+# ANALISE EXPLORATÓRIA
 ##########################
-
-# Transforma variáveis de caractere para factor
-  # character_vars <- lapply(dados, class) == "character"
-  # dados[, character_vars] <- lapply(dados[, character_vars], as.factor)
-
+ 
 # Plot do sexo por estado cívil
   # A maoiria das mulheres morre viúva
   # A maioria dos homens morre casado
@@ -132,7 +131,7 @@ ggplot(filter(dados, SEXO == 'Feminino'),aes(x=ESTCIV, fill=ESTCIV)) + geom_bar(
 
 # Municipios com maiores registros de mortes
 dados %>% group_by(munResNome) %>% count(sort = TRUE)
-
+ 
 ##########################
 # ANALISE EXPLICITA
 ##########################
