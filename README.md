@@ -27,9 +27,9 @@ Este padrão se constitui em seis fases:
 - Entendimento do negócio
 - Entendimento dos dados
 - Preparação de dados
-- Modelagem
+- Modelagem - Análise Exploratória
+- Modelagem - Analise Implicita
 - Avaliação
-- Implantação
 
 ### Entendimento do negócio
 O Ministério da Saúde brasileiro desenvolveu o SIM, Sistema de Informação sobre Mortalidade, que unifica declarações de óbito emitidas no país desde 1979. Seu conjunto de informações serve de apoio para o desenvolvimento de políticas públicas com respeito a saúde da população.
@@ -51,7 +51,7 @@ Durante a preparação dos dados, Foi feita junção da base de mortalidade com 
 #### Padronização dos dados
 - IDADE: Todas as idades em dias, meses e de até um ano foram agrupadas na catgoria "até um ano". Demais idades seguem em anos, até agrupar idades maiores ou iguais a 100 em "cem ou mais".
 
-### Modelagem
+### Modelagem - Análise Exploratória
 
 #### Homens morrem mais do que as mulheres
 ![sexos](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/4c2a0636-8fca-42ab-95ad-3405e3a71401)
@@ -80,7 +80,7 @@ Durante a preparação dos dados, Foi feita junção da base de mortalidade com 
 #### As ocupações com mais óbitos são: Aposentados,  donas de casa e pedreiros
 ![ocup](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/a9770f5e-075a-447a-a34c-1bc1bf1cc2cf)
 
-## Analise Implicita 
+### Modelagem - Analise Implicita 
 Para a analise implicita foi elaborado um modelo de regressão logistica binomial utilizando como variavel dependente o estado civil(ESTCIV), dividindo em duas classes "viúvo e não viúvo", e utilizando as variaveis CAUSABAS, faixa_idade, SEXO, RACACOR, OCUP como variaveis independentes.
 
 
