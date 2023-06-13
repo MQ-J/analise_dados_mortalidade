@@ -124,7 +124,7 @@ Em seguida extraido informações de acuracia, sensibilidade e especificidade
 Por ultimo foi feito a curva ROC com o resultado com base nas predições.
 
 <p align="center">
-  <img src="https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/cde2974a-a80d-4d9a-acb8-900233792a2d" />
+  <img src="https://raw.githubusercontent.com/MQ-J/analise_dados_mortalidade/main/assets/curva_roc.png" />
 </p>
 
 
