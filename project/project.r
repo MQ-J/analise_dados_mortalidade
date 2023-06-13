@@ -86,35 +86,52 @@ dados<-dados%>%
 
 
 ##########################
-# Modelagem
+# Análise Exploratória
 ##########################
 
-# Verifica outlier
-boxplot(dados$IDADE)
+# Transforma variáveis de caractere para factor
+  # character_vars <- lapply(dados, class) == "character"
+  # dados[, character_vars] <- lapply(dados[, character_vars], as.factor)
 
-# Gera o plot das colunas idade e racacor, com amostra de 100
-select(dados, SEXO, RACACOR) %>%
-  sample_n(100) %>%
-  collect() %>%
-  plot()
+# Plot do sexo por estado cívil
+  # A maoiria das mulheres morre viúva
+  # A maioria dos homens morre casado
+  select(dados, SEXO, ESTCIV) %>%
+   collect() %>%
+   plot()
 
-# Analise exploratória do SEXO (só funciona com variaveis 'factor')
-plot(as.factor(dados$SEXO))
-
-# Análise exploatória da Idade
-plot(as.factor(dados$IDADEanos))
-
-plot(as.factor(dados$faixa_idade))
+# Morreram mais homens que mulheres
+plot(dados$SEXO)
 
 # Análise exploratória do estado cívil
-plot(as.factor(dados$ESTCIV))
+plot(dados$ESTCIV)
 
-table(dados$SEXO)
+# Análise exploratória da raça
+plot(dados$RACACOR)
 
-dados$ESTCIV
+# Causas de morte mais recorrentes:
+# coronavírus, infarto, causas não específicadas,
+# demais transtornos respiratórios, diabetes,
+# neoplasia dos brônquios, infecção urinária,
+# AVC e alzhieimer
+dados %>% group_by(CAUSABAS) %>% count(sort = TRUE)
 
-character_vars <- lapply(dados, class) == "character"
-dados[, character_vars] <- lapply(dados[, character_vars], as.factor)
+# Quantidade de óbitos pelo estado cícvil no sexo masculino - a maioria dos homens morre casado
+ggplot(filter(dados, SEXO == 'Masculino'),aes(x=ESTCIV, fill=ESTCIV)) + geom_bar()
+
+# Quantidade de óbitos pelo estado cícvil no sexo feminino - a maioria das mulheres morre viúva
+ggplot(filter(dados, SEXO == 'Feminino'),aes(x=ESTCIV, fill=ESTCIV)) + geom_bar()
+
+# Coronavirus
+  # Mortes por covid por sexo
+  ggplot(filter(dados, grepl("B342", CAUSABAS, fixed = TRUE))[1:20,],aes(x=SEXO, fill=SEXO)) + geom_bar()
+
+# As ocupações que mais registraram mortes em 2020 foram:
+  #Aposentados, donas de casa e pedreiros.
+  dados %>% group_by(OCUP) %>% count(sort = TRUE)
+
+# Municipios com maiores registros de mortes
+dados %>% group_by(munResNome) %>% count(sort = TRUE)
 
 ##########################
 # ANALISE EXPLICITA
