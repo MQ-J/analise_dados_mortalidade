@@ -80,11 +80,53 @@ Durante a preparação dos dados, Foi feita junção da base de mortalidade com 
 #### As ocupações com mais óbitos são: Aposentados,  donas de casa e pedreiros
 ![ocup](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/a9770f5e-075a-447a-a34c-1bc1bf1cc2cf)
 
+## Analise Implicita 
+Para a analise implicita foi elaborado um modelo de regressão logistica binomial utilizando como variavel dependente o estado civil(ESTCIV), dividindo em duas classes "viúvo e não viúvo", e utilizando as variaveis CAUSABAS, faixa_idade, SEXO, RACACOR, OCUP como variaveis independentes.
+
+
+Foi ajustado a idade que era um valores muito extensos para uma variavel categorica de 4 niveis.
+
+Foi utilizado 100000 dados extraidos da base do SIM e removidos os 'NA' desses dados.
+
+Foi alterado a variavel ESTCIV para dicotomica.
+
+Posteriormente foi feito um modelo.
+
 ### Avaliação
 
-### Implantação
+Em relação ao modelo da analise explicita foi feito duas avaliações.
 
-## Descarte
+A primeira avaliação é baseada na matrix de confusão gerada pelos dados:
+
+```r
+> matriz_confusao <- table(dados_teste$resultado, previsoes > 0.5)
+> matriz_confusao
+       
+        FALSE  TRUE
+  FALSE 17931  3402
+  TRUE   3410  4789
+```
+
+Em seguida extraido informações de acuracia, sensibilidade e especificidade
+
+```r
+> acuracia <- sum(diag(matriz_confusao)) / sum(matriz_confusao)
+> print(acuracia)
+[1] 0.769335
+> sensibilidade <- matriz_confusao[2, 2] / sum(matriz_confusao[2, ])
+> print(sensibilidade)
+[1] 0.5840956
+> especificidade <- matriz_confusao[1, 1] / sum(matriz_confusao[1, ])
+> print(especificidade)
+[1] 0.8405288
+```
+
+Por ultimo foi feito a curva ROC com o resultado com base nas predições.
+
+<p align="center">
+  <img src="https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/cde2974a-a80d-4d9a-acb8-900233792a2d" />
+</p>
+
 
 ## Referências
 ### Bases de dados utilizadas
