@@ -1,5 +1,14 @@
 # Mortalidade no Brasil no ano de 2020
 
+<div style="height:90vh;">
+  <div style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);">
+      <h3 align="center">Instituto Federal de Educação, Ciência e Tecnologia de São Paulo</h3>
+  <p align="center">Rian Santos Macedo</p>
+  <p align="center">Marcos Querino dos Santos e Santos Junior</p>
+  </div>
+</div>
+
+## Intrudução
 A proposta deste projeto é aplicar o ciclo de vida do dado em uma base de dados do Ministério da Saúde do Brasil. A base escolhida para análise contém os registros de mortalidade no Brasil no ano de 2020.
 
 O ciclo de vida do dado, citado anteriormente, diz respeito às fases que um conjunto de dados percorre dentro da ciência de dados. Cada fase deste ciclo é abordada em um capítulo deste relatório.
@@ -53,13 +62,13 @@ Durante a preparação dos dados, Foi feita junção da base de mortalidade com 
 
 ### Modelagem - Análise Exploratória
 
-#### Homens morrem mais do que as mulheres
+#### A taxa de mortalidade masculina é maior em relação à feminina
 ![sexos](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/4c2a0636-8fca-42ab-95ad-3405e3a71401)
 
-#### A maior parte da população morre casada
+#### A Maioria dos óbitos são de pessoas casadas
 ![estciv](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/06ca33c3-6d70-472e-a897-c7e8f4badb5a)
 
-#### Apesar de no Braisl a maior parte da população de autodeclarar negra ou parda, são os brancos que mais morreram em São Paulo em 2020.
+#### Numeros de óbitos em relação a raça
 ![racacor](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/bef38fbf-a23a-4461-bad6-68d45460d731)
 
 #### As principais causas de morte foram
@@ -72,12 +81,13 @@ Durante a preparação dos dados, Foi feita junção da base de mortalidade com 
 
 ![causaabas](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/8936e70f-c073-4274-8fa0-1898b7235e88)
 
-#### A maioria dos homens que morrem, morrem casados, mas quanto as mulheres, em sua maioria ela morrem viúvas
+#### A maioria dos homens morrem após o matrimônio, estando o cônjuje ainda vivo
 ![estciv_homens](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/23b1d749-9fa6-49f1-b0ec-dc954eaf4415)
 
+#### Por outro lado, o sexo feminno tende a falecer após seu cônjuje
 ![estciv_mulheres](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/aeea3eaa-d7ed-4c4a-b063-397a42bf5bcc)
 
-#### As ocupações com mais óbitos são: Aposentados,  donas de casa e pedreiros
+#### As ocupações com mais óbitos são: Aposentados,  donas de casa e pedreiros.
 ![ocup](https://github.com/MQ-J/analise_dados_mortalidade/assets/61765516/a9770f5e-075a-447a-a34c-1bc1bf1cc2cf)
 
 ### Modelagem - Analise Implicita 
@@ -138,6 +148,6 @@ Por ultimo foi feito a curva ROC com o resultado com base nas predições.
 Problemas Relacionados à Saúde / CID-10](https://www.saude.sc.gov.br/index.php/informacoes-gerais-documentos/video-e-webconferencias/webconferencias-2010/treinamento-sim/3659-manual-mortalidade-2007/file)
 ### Ferramentas utilizadas
 - [Posit Cloud](https://posit.cloud/): Ambiente de desenvolvimento de modelos e armazenamento de datasets.
-- [microdatasus](https://github.com/rfsaldanha/microdatasus): Pacote R para download de arquivos do OpenDataSUS.
+- SALDANHA, Raphael de Freitas; BASTOS, Ronaldo Rocha; BARCELLOS, Christovam. Microdatasus: pacote para download e pré-processamento de microdados do Departamento de Informática do SUS (DATASUS). Cad. Saúde Pública,  Rio de Janeiro ,  v. 35, n. 9,  e00032419,    2019 .   [microdatasus](https://github.com/rfsaldanha/microdatasus).
 - [read.dbc](https://github.com/danicat/read.dbc): Pacote necessário para usar a biblioteca microdatasus.
 - [md2pdf](https://md2pdf.netlify.app/): Conversão do REDME do depositório em um arquivo PDF.
