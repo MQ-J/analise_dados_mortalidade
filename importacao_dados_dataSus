@@ -1,8 +1,0 @@
-install.packages("remotes")
-remotes::install_github("rfsaldanha/microdatasus", force=TRUE)
-
-
-library(microdatasus)
-
-dados <- fetch_datasus(year_start = 2020, year_end = 2020, uf = "SP", information_system = "SIM-DO")
-dados <-process_sim(dados)
